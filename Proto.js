@@ -1,12 +1,23 @@
-﻿var Proto = (function () {
+﻿/*
+ * Copyright 2013, Fog Creek Software
+ * License: http://www.apache.org/licenses/LICENSE-2.0 
+ */
+
+var Proto = (function () {
     "use strict";
+
+	function bind(f, self) {
+		return function () {
+			return f.apply(self, arguments);
+		}
+	}
 
     var methods = {
         _super: function (base) {
             var methods = Object.getPrototypeOf(base).__methods__;
             var proxy = Object.create(this);
             for (var key in methods) {
-                proxy[key] = $.proxy(methods[key], this);
+                proxy[key] = bind(methods[key], this);
             }
 
             return proxy;
@@ -35,13 +46,12 @@
             }
 
             for (key in this.__methods__) {
-                this[key] = $.proxy(this.__methods__[key], this);
+                this[key] = bind(this.__methods__[key], this);
             }
         }
     };
 
     var Proto = {
-        __name__: "Proto",
         __methods__: {}
     };
 
