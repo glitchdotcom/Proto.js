@@ -1,6 +1,6 @@
 Proto.js - Prototypical Inheritance Embraced
 ============================================
-Prototypical inheritance in JavaScript is actually kind of cool, but in addition to
+Prototypical inheritence in JavaScript is actually kind of cool, but in addition to
 deviating from the inheritance most people are used to, it's annoyingly hard to use
 (``Object.create`` wasn't even added until ES5, and even that is a little unfriendly).
 ``Proto.js`` embraces JavaScripts prototypical inheritance and makes it easy to create
@@ -37,17 +37,17 @@ objects to existing objects just like during ``create``:
 
 ._super()
 ---------
-`Proto.js`` makes it possible to override existing methods, but still call them:
+``Proto.js`` object make it possible to override existing methods, but still call them:
 
 	var LoudPerson = Person.create({
 		greet: function() {
-			// Let's us search the prototype chain starting above the object we pass in.
+			// Lets us search the prototype chain starting above the object we pass in.
 			var message = this._super(LoudPerson).greet();
 			return message.toUpperCase();
 		}
 	});
 	
-	var jill = LoudPerson.create();
+	var jill = LoudPerson.create({name: "Jill"});
 	jill.greet() --> "HELLO JILL!";
 
 Never write $.proxy again!

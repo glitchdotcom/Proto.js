@@ -14,6 +14,14 @@ var Proto = (function () {
 
     var methods = {
         _super: function (base) {
+			if (base === null || base === undefined) {
+				throw new Error("argument is null or undefined")
+			}
+
+			if(!base.isPrototypeOf(this) && base !== this) {
+				throw new Error("argument is unrelated")
+			}
+
             var methods = Object.getPrototypeOf(base).__methods__;
             var proxy = Object.create(this);
             for (var key in methods) {

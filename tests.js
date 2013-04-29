@@ -153,4 +153,31 @@ $(function () {
             "setters work too"
         );
     });
+
+	var ExceptionalPerson = Person.create({
+		say: function (obj) {
+			var msg = this._super(obj).say();
+			return msg.toLowerCase();
+		}
+	});
+
+	test("Exceptions", function () {
+		function thrower(obj) {
+			return function () {
+				ExceptionalPerson.say(obj);
+			}
+		}
+
+		throws(
+			thrower(),
+			/argument is null or undefined/,
+			"_super() provides a helpful message when passed undefined"
+		);
+
+		throws(
+			thrower({}),
+			/argument is unrelated/,
+			"_super() provides a helpful message when passed an unrelated object"
+		);
+	});
 });
